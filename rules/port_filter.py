@@ -30,7 +30,7 @@ class PortRule(SimpleRule):
     def filter_condition(self, packet):
         """Condition to jump to action chain."""
         match = (packet.get_protocol() == self._protocol)
-        match = (packet.get_payload() is not None)
+        match = match and (packet.get_payload() is not None)
         match = match and (self._src_port is None or
                            packet.get_payload().get_src_port() == self._src_port)
         match = match and (self._dst_port is None or
